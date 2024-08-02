@@ -153,6 +153,7 @@ export class DepthsService extends Streamed {
     }
 
     /** does not send any vent since it needs to be handled for all dives at once */
+    // another change1
     public setSimple(): void {
         this.plan.setSimple(this.plan.maxDepth, this.plan.duration, this.firstTank, this.optionsService.getOptions());
         this.updateLevels();
