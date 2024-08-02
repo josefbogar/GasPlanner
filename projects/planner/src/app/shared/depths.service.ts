@@ -28,6 +28,7 @@ export class DepthsService extends Streamed {
         this.toxicity = this.optionsService.toxicity;
 
         // this enforces to initialize the levels, needs to be called after subscribe to plan
+        // zkouska1
         if(this.plan.maxDepth === 0) {
             let requiredDepth = this.units.defaults.stopsDistance * 10; // 30 m or 100 ft
             requiredDepth = this.units.toMeters(requiredDepth);
