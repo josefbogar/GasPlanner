@@ -44,16 +44,16 @@ export class AppSettingsPage {
     }
 
      public get maxDensityInput(): HTMLInputElement {
-    return this.fixture.debugElement.query(By.css('[formControlName="maxDensity"]')).nativeElement as HTMLInputElement;
+    return this.fixture.debugElement.query(By.css('#maxDensity')).nativeElement as HTMLInputElement;
     }
 
     public get primaryReserveInput(): HTMLInputElement {
-    return this.fixture.debugElement.query(By.css('[formControlName="primaryTankReserve"]')).nativeElement as HTMLInputElement;
+    return this.fixture.debugElement.query(By.css('#primaryTankReserve')).nativeElement as HTMLInputElement;
 
     }
 
     public get stageReserveInput(): HTMLInputElement {
-    return this.fixture.debugElement.query(By.css('[formControlName="stageTankReserve"]')).nativeElement as HTMLInputElement;
+    return this.fixture.debugElement.query(By.css('#stageTankReserve')).nativeElement as HTMLInputElement;
 
     }
 
@@ -138,20 +138,23 @@ describe('App settings component', () => {
 
         it('Should return to default values of max density after changing values', () => {
 
-            page.setInputValue(page.maxDensityInput, 4.5);
-            page.setInputValue(page.primaryReserveInput, 29);
-            page.setInputValue(page.stageReserveInput, 19);
+        const originalDensity = page.maxDensityInput.value;
+        const originalPrimary = page.primaryReserveInput.value;
+        const originalStage = page.stageReserveInput.value;
 
+        page.setInputValue(page.maxDensityInput, (originalDensity) + 1);
+        page.setInputValue(page.primaryReserveInput, (originalPrimary) + 5);
+        page.setInputValue(page.stageReserveInput, (originalStage) + 3);
 
-            page.useButton.click();
-            fixture.detectChanges();
+        page.useButton.click();
+        fixture.detectChanges();
 
-            page.resetToDefault.click();
-            fixture.detectChanges();
+        page.resetToDefault.click();
+        fixture.detectChanges();
 
-            expect(page.maxDensityInput.value).toBeCloseTo(component.appSettings.defaultMaxGasDensity, 1);
-            expect(page.primaryReserveInput.value).toBeCloseTo(component.appSettings.defaultPrimaryTankReserve, 1);
-            expect(page.stageReserveInput.value).toBeCloseTo(20,1);
+        expect(page.maxDensityInput.value).toBe(originalDensity);
+        expect(page.primaryReserveInput.value).toBe(originalPrimary);
+        expect(page.stageReserveInput.value).toBe(originalStage);
 
         });
 
